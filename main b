@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 100
+
+typedef stuct {
+    char id[10];
+    char nom[100];
+    char adresse[100];
+    char ville[50];
+    char etat[20];
+    int places_dispo;
+    int capacite_max;
+    char date[50];
+    char affichage[20];
+} Paking;
+
+vod lspakings(Parking tab[], int *n) {
+    Fille *f = fopen("parking.csv", "r");
+    if (f == NULL) {
+        printf("erreur ouverture fichier\n");
+        retun;
+    }
+    *n = 0;
+    while (fscanf(f, "%[^;];%[^;];%[^;];%[^;];%[^;];%d;%d;%[^;];%[^\n)\n",
+        tab[*n].id,
+        tab[*n].nom,
+        tab[*n].adresse,
+        tab[*n].ville,
+        tab[*n].etat,
+        &tab[*n].places_dispo,
+        &tab[*n].capacite_max,
+        tab[*n].date,
+        tab[*n].affichage)==9) {
+
+        (*n)++;
+    }
+    fclose(f);
+}
+
+
+void afficheparing(Paking tab[], int n, char id[]) {
+    for in i = 0; i < n; i++) {
+        if (strcmp(tab[i].id, id) == 0) {
+            printf("\nID: %s\nNom: %s\nVille: %s\nPlaces: %d/%d\nEtat: %s\n",
+                tab[i].id, tab[i].nom, tab[i].ville,
+                tab[i].places_dispo, tab[i].capacie_max, tab[i].ea);
+            return;
+        }
+    }
+    printf("Parking non trouvé\n");
+}
+
+void afficheparkings(Parking tab[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%s - %s (%s) : %d places\n",
+               tab[i].id, tab[i].nom, tab[i].ville, tab[i].places_disp);
+    }
+}
+
+
+void sortiePaking() {
+    time_t entee, sortie;
+    double duree;
+    float prix;
+
+    time(&entree);
+    pintf("Simulation attente...\n");
+    sleep(2);
+
+    tme(&sotie);
+
+    duree = difftime(sortie, entree) / 60;
+    prix = duree * 0.05;
+
+    printf("Duée: %.2f min\n", duree);
+    printf("Prix: %.2f euros\n", prix);
+}
+
+
+void suiviClient(char plaque[], foat montant) {
+    FILE *f = fopen("clients.txt", "a");
+
+    if (f != NULL) {
+        fpintf(f, "Plaque: %s - Montant: %.2d\n", plaque, montant);
+        fclosef);
+    }
+}
+
+
+void mettreAJrOccupation(Paring tab[], int n, char id[], int entree {
+    for (int i = 0; i < n; i++) {
+        if (srcm(tab[i].id, d) == 0) {
+            if (entree == 1 && tab[i].places_dispo > 0)
+                tab[i].places_dispo--;
+            else if (entree == 0)
+                tab[i].places_dis++:
+        }
+    }
+}
+
+
+int modeAdminisateur() {
+    int code;
+    printf("Code admin: ");
+    scanf("%d", &code);
+
+    if (code == 1234)
+        reurn 1;
+    else
+        return0;
+}
+
+int verifierPlacesDisponibles(Parking tab[], int n, char id[]) {
+    for (int i=0; i < n; i++) {
+            if (strcmp(tab[i].id, id) == 0) {
+                if (tab[i].places_dispo == 0)
+                    return 1;
+                else
+                    return 0;
+            }
+    }
+    return -1;
+}
+
+
+void sauvegarderEaParking(Paring tab[], int n) {
+    FILE *f = fopen("parking_new.csv","w");
+
+    for (int i = 0; i < n; i++) {
+        fprintf(f, "%s;%s;%s;%s;%s;%d;%d;%s\n",
+            tab[i].id,
+            tab[i].nom,
+            tab[i].adresse,
+            tab[i].ville,
+            tab[i].etat,
+            tab[i].places_dispo,
+            tab[i].capacite_max,
+            tab[i].date,
+            tab[i].affichage);
+    }
+
+    fclose(f);
+}
+
+
+int main() {
+    Paking ab[MAX];
+    int n;
+
+    lesparkings(tab, &n);
+
+    afficheparkings(tab, n);
+
+    afficheparking(tab, n, "RBX0001");
+
+    mettreAJouOccupation(tab, n, "BX0001", 1);
+
+    if (veifierPlacesDisponibles(tab, n, "RBX0001"))
+        pintf("Parkng plein\n");
+
+    sauvegarderEtatParking(tab, n);
+
+    return 0;
+}
